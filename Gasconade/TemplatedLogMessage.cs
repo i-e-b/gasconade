@@ -15,7 +15,10 @@ namespace Gasconade
             var attrs = GetType().GetCustomAttributes(typeof(LogMessageTemplateAttribute), true) as LogMessageTemplateAttribute[];
             if (attrs == null || attrs.Length < 1) return UntemplatedMessage();
 
-            var tmpl = attrs.First().MessageTemplate.Replace("{", "{0:"); // we subvert the `string.Format` logic a bit here...
+            var tmpl = attrs.Single()
+                .MessageTemplate
+                .Replace("{", "{0:")        // we subvert the `string.Format` logic a bit here to work with `PropertyFormatProvider`
+                .Replace("{0:{0:", "{{");   // restore escaped text
 
             return string.Format(new PropertyFormatProvider(), tmpl, this);
         }
@@ -40,7 +43,7 @@ namespace Gasconade
             var attrs = GetType().GetCustomAttributes(typeof(LogMessageDescriptionAttribute), true) as LogMessageDescriptionAttribute[];
             if (attrs == null || attrs.Length < 1) return new LogTemplateDescription();
 
-            var desc = attrs.First();
+            var desc = attrs.Single();
 
             return new LogTemplateDescription{
                 Causes = desc.Causes,

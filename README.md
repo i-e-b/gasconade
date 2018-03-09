@@ -4,12 +4,19 @@ A self-documenting logging system for .Net -- like Swagger (UI) for logs.
 Concepts
 --------
 
-Calling:
+### Configuring:
+```
+public class MyListenerClass: ILogListener { . . . }
+. . .
+Log.AddListener(new MyListenerClass());
+```
+
+### Calling:
 ```
 Log.Warning(new FailedToSend{Client="Salesforce", Reason="it was rejected by client"});
 ```
 
-Setup:
+### Message Setup:
 ```
 // This is the structure of the message, with replacement blocks:
 [LogMessageTemplate("Could not send message to {Client} because {Reason}")]
@@ -25,3 +32,7 @@ public class FailedToSend {
     public string Reason {get;set;}
 }
 ```
+
+### Results:
+> Could not send message to Salesforce because it was rejected by client
+

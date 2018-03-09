@@ -5,7 +5,7 @@ namespace Gasconade
     /// <summary>
     /// This attribute gives a description of a log template replacement property in the log message class
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class LogParamAttribute : Attribute
     {
         /// <summary>

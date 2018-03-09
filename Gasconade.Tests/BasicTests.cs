@@ -1,10 +1,11 @@
-﻿using Gasconade.Tests.SampleMessages;
+﻿using Gasconade.Tests.Helpers;
+using Gasconade.Tests.SampleMessages;
 using NUnit.Framework;
 
 namespace Gasconade.Tests
 {
     [TestFixture]
-    public class InitialTests
+    public class BasicTests
     {
         [Test]
         public void log_messages_can_be_converted_to_strings()
@@ -13,6 +14,15 @@ namespace Gasconade.Tests
             var result = subject.ToString();
 
             Assert.That(result, Is.EqualTo("Phil said something about Paul's mum"));
+        }
+        
+        [Test]
+        public void log_messages_can_have_escaped_braces()
+        {
+            var subject = new EscapedMessage { Unescaped = "Changed", Escaped = "NotChanged" };
+            var result = subject.ToString();
+
+            Assert.That(result, Is.EqualTo("This has been Changed and this has not {Escaped} been changed"));
         }
 
         [Test]
@@ -60,9 +70,34 @@ namespace Gasconade.Tests
         }
 
         [Test]
-        public void static_logger_writes_expanded_messages_to_consumers() { Assert.Inconclusive("NYI"); }
+        public void static_logger_writes_expanded_messages_to_consumers() {
+            var dummyListener = new DummyListener();
+            Log.AddListener(dummyListener);
+            Log.Warning(new TestMessage { Target = "Paul", Subject = "Phil" });
+
+            Assert.That(dummyListener.messages, Contains.Item("Warning: Phil said something about Paul's mum"));
+        }
+        
+        [Test]
+        public void adding_a_listener_more_than_once_results_in_repeated_messages() {
+            var dummyListener = new DummyListener();
+            Log.AddListener(dummyListener);
+            Log.AddListener(dummyListener);
+            Log.Warning(new TestMessage { Target = "Paul", Subject = "Phil" });
+
+            Assert.That(dummyListener.messages.Count, Is.EqualTo(2));
+        }
 
         [Test]
-        public void ui_page_provides_documentation_of_messages() { Assert.Inconclusive("NYI"); }
+        public void faulty_listeners_are_skipped_and_subsequent_listeners_called () {
+            var dummyListener = new DummyListener();
+            var faultyListener = new FaultyListener();
+            Log.AddListener(dummyListener);
+            Log.AddListener(faultyListener);
+            Log.AddListener(dummyListener);
+            Log.Warning(new TestMessage { Target = "Paul", Subject = "Phil" });
+
+            Assert.That(dummyListener.messages.Count, Is.EqualTo(2));
+        }
     }
 }

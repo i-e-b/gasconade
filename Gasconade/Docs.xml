@@ -4,17 +4,96 @@
         <name>Gasconade</name>
     </assembly>
     <members>
+        <member name="T:Gasconade.ILogListener">
+            <summary>
+            Interface for injecting into the log class
+            </summary>
+        </member>
+        <member name="M:Gasconade.ILogListener.HandleMessage(Gasconade.LogLevel,System.String,System.Object)">
+            <summary>
+            Handle a message sent via the logging system. It is up to the listener to determine which levels
+            should be responded to, and what actions to take
+            </summary>
+            <param name="level">Log level as stated by the caller</param>
+            <param name="message">message from the log, with templates completed from data</param>
+            <param name="data">the original object sent by caller</param>
+        </member>
         <member name="T:Gasconade.Log">
             <summary>
             Log sender static container. Use this to send your log messages.
             Inject log suppliers to do the final writing
             </summary>
         </member>
-        <member name="M:Gasconade.Log.Warning``1(``0)">
+        <member name="M:Gasconade.Log.AddListener(Gasconade.ILogListener)">
             <summary>
-            Send a warning-level message
+            Add a listener to static log.
+            Every listener added will have a chance to respond to every log message sent
+            </summary>
+        </member>
+        <member name="M:Gasconade.Log.Diagnostic``1(``0)">
+            <summary>
+            Send a diagnostic-level message.
+            Diagnostic messages are used for integration and diagnostic purposes, and should not be recorded in production software
             </summary>
             <param name="logMessage">The message object. The class should have a LogMessageTemplate attribute</param>
+        </member>
+        <member name="M:Gasconade.Log.Info``1(``0)">
+            <summary>
+            Send a info-level message.
+            Info messages are messages that don't necessarily relate to an error condition
+            </summary>
+            <param name="logMessage">The message object. The class should have a LogMessageTemplate attribute</param>
+        </member>
+        <member name="M:Gasconade.Log.Warning``1(``0)">
+            <summary>
+            Send a warning-level message.
+            Warning messages are used for unexpected or out-of-normal conditions that may result in an error condition later
+            </summary>
+            <param name="logMessage">The message object. The class should have a LogMessageTemplate attribute</param>
+        </member>
+        <member name="M:Gasconade.Log.Error``1(``0)">
+            <summary>
+            Send a Error-level message.
+            Error messages relate to an error conditions that prevents normal completion of an operation
+            </summary>
+            <param name="logMessage">The message object. The class should have a LogMessageTemplate attribute</param>
+        </member>
+        <member name="M:Gasconade.Log.Critical``1(``0)">
+            <summary>
+            Send a Critical-level message.
+            Critical messages relate to conditions that prevent the system from operating, or providing the intended service
+            </summary>
+            <param name="logMessage">The message object. The class should have a LogMessageTemplate attribute</param>
+        </member>
+        <member name="T:Gasconade.LogLevel">
+            <summary>
+            Available log levels
+            </summary>
+        </member>
+        <member name="F:Gasconade.LogLevel.Diagnostic">
+            <summary>
+            Messages that are used for integration and diagnostic purposes, and should not be recorded in production software
+            </summary>
+        </member>
+        <member name="F:Gasconade.LogLevel.Info">
+            <summary>
+            Informative messages that don't necessarily relate to an error condition
+            </summary>
+        </member>
+        <member name="F:Gasconade.LogLevel.Warning">
+            <summary>
+            Informative messages that warn of unexpected or out-of-normal conditions that may result in an error condition later
+            </summary>
+        </member>
+        <member name="F:Gasconade.LogLevel.Error">
+            <summary>
+            Message relates to an error condition that prevents normal completion of an operation
+            </summary>
+        </member>
+        <member name="F:Gasconade.LogLevel.Critical">
+            <summary>
+            Message relates to a condition that prevents the system from operating, or providing the intended service
+            </summary>
         </member>
         <member name="T:Gasconade.LogMessageDescriptionAttribute">
             <summary>
