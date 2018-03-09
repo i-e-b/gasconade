@@ -5,19 +5,19 @@ Concepts
 --------
 
 ### Configuring:
-```
+```csharp
 public class MyListenerClass: ILogListener { . . . }
 . . .
 Log.AddListener(new MyListenerClass());
 ```
 
 ### Calling:
-```
-Log.Warning(new FailedToSend{Client="Salesforce", Reason="it was rejected by client"});
+```csharp
+Log.Warning(new FailedToSend{Client="WhizbangSvc", Reason="it was rejected by client"});
 ```
 
 ### Message Setup:
-```
+```csharp
 // This is the structure of the message, with replacement blocks:
 [LogMessageTemplate("Could not send message to {Client} because {Reason}")]
 // This text explains why the message would be logged, and what to do about it -- to be used by an Operations team:
@@ -33,6 +33,6 @@ public class FailedToSend {
 }
 ```
 
-### Results:
-> Could not send message to Salesforce because it was rejected by client
+### Sample Result:
+> Could not send message to WhizbangSvc because it was rejected by client
 
