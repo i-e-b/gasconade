@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gasconade</name>
+    </assembly>
+    <members>
+        <member name="T:Gasconade.Log">
+            <summary>
+            Log sender static container. Use this to send your log messages.
+            Inject log suppliers to do the final writing
+            </summary>
+        </member>
+        <member name="M:Gasconade.Log.Warning``1(``0)">
+            <summary>
+            Send a warning-level message
+            </summary>
+            <param name="logMessage">The message object. The class should have a LogMessageTemplate attribute</param>
+        </member>
+        <member name="T:Gasconade.LogMessageDescriptionAttribute">
+            <summary>
+            This attribute gives a description of the log message: the meaning, when it would be written, and actions that can be taken in response
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogMessageDescriptionAttribute.Description">
+            <summary>
+            An overall description of the log message and its general meaning
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogMessageDescriptionAttribute.Causes">
+            <summary>
+            Optional: A description of why this log might be triggered
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogMessageDescriptionAttribute.Actions">
+            <summary>
+            Optional: A description of action to be taken based on the log being triggered
+            </summary>
+        </member>
+        <member name="M:Gasconade.LogMessageDescriptionAttribute.#ctor(System.String)">
+            <summary>
+            Gives the string template of a log message.
+            Replacements can be added in the style of `{PropertyName}`
+            </summary>
+        </member>
+        <member name="T:Gasconade.LogMessageTemplateAttribute">
+            <summary>
+            This attribute gives the string template of a log message.
+            Replacements can be added in the style of `{PropertyName}`
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogMessageTemplateAttribute.MessageTemplate">
+            <summary>
+            Message template
+            </summary>
+        </member>
+        <member name="M:Gasconade.LogMessageTemplateAttribute.#ctor(System.String)">
+            <summary>
+            Gives the string template of a log message.
+            Replacements can be added in the style of `{PropertyName}`
+            </summary>
+        </member>
+        <member name="T:Gasconade.LogParamAttribute">
+            <summary>
+            This attribute gives a description of a log template replacement property in the log message class
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogParamAttribute.Description">
+            <summary>
+            Description of the log parameter
+            </summary>
+        </member>
+        <member name="M:Gasconade.LogParamAttribute.#ctor(System.String)">
+            <summary>
+            Gives a description of a log template replacement parameter
+            </summary>
+        </member>
+        <member name="T:Gasconade.LogTemplateDescription">
+            <summary>
+            Description data from a templated log message
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogTemplateDescription.Description">
+            <summary>
+            An overall description of the log message and its general meaning
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogTemplateDescription.Causes">
+            <summary>
+            Optional: A description of why this log might be triggered
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogTemplateDescription.Actions">
+            <summary>
+            Optional: A description of action to be taken based on the log being triggered
+            </summary>
+        </member>
+        <member name="T:Gasconade.TemplatedLogMessage">
+            <summary>
+            Base class for templated log messages
+            </summary>
+        </member>
+        <member name="M:Gasconade.TemplatedLogMessage.ToString">
+            <summary>
+            Expand template with properties from derived instance
+            </summary>
+        </member>
+        <member name="M:Gasconade.TemplatedLogMessage.UntemplatedMessage">
+            <summary>
+            If a template is not supplied, generate a default template
+            </summary>
+        </member>
+        <member name="M:Gasconade.TemplatedLogMessage.GetDescription">
+            <summary>
+            Extract the description data from the derived instance
+            </summary>
+        </member>
+        <member name="T:Gasconade.TemplatedLogMessage.PropertyFormatProvider">
+            <summary>
+            This format provider abuses the 'format' string to look up property values on the parameter object
+            </summary>
+        </member>
+    </members>
+</doc>
