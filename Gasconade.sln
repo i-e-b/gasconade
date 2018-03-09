@@ -13,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Info", "_Info", "{F6EE7E04
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{4A0F568E-42C9-4045-893F-05803A4D92D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade.Swashbuckle", "Gasconade.Swashbuckle\Gasconade.Swashbuckle.csproj", "{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApi", "SampleWebApi\SampleWebApi.csproj", "{C9186167-5739-4E99-9103-2EA8FCFF5A1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,9 +33,20 @@ Global
 		{E83A2306-AAF5-4F30-9B21-572D104F3E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E83A2306-AAF5-4F30-9B21-572D104F3E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E83A2306-AAF5-4F30-9B21-572D104F3E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C9186167-5739-4E99-9103-2EA8FCFF5A1C} = {4A0F568E-42C9-4045-893F-05803A4D92D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {824CED53-0CC1-489E-8A85-0D2913DBF06B}
