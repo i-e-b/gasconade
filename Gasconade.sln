@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Info", "_Info", "{F6EE7E04
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{4A0F568E-42C9-4045-893F-05803A4D92D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade.Swashbuckle", "Gasconade.Swashbuckle\Gasconade.Swashbuckle.csproj", "{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade.UI", "Gasconade.UI\Gasconade.UI.csproj", "{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApi", "SampleWebApi\SampleWebApi.csproj", "{C9186167-5739-4E99-9103-2EA8FCFF5A1C}"
 EndProject

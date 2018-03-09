@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using Gasconade.UI;
 
 namespace SampleWebApi
 {
@@ -9,8 +10,10 @@ namespace SampleWebApi
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configure(SwaggerConfig.Register);
+            GlobalConfiguration.Configure(GasconadeConfig.Register);
+
         }
-        
+
         protected void Application_Error(object sender, EventArgs e)
         {
             var exc = Server.GetLastError();
@@ -21,4 +24,5 @@ namespace SampleWebApi
             Response.End();
         }
     }
+
 }

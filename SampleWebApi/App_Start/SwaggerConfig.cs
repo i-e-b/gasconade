@@ -7,8 +7,6 @@ namespace SampleWebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            var thisAssembly = typeof(SwaggerConfig).Assembly;
-
             config
                 .EnableSwagger(c =>
                     {
@@ -19,5 +17,6 @@ namespace SampleWebApi
                         c.DocumentTitle("My Swagger UI");
                     });
         }
+
     }
 }
