@@ -36,3 +36,9 @@ public class FailedToSend {
 ### Sample Result:
 > Could not send message to WhizbangSvc because it was rejected by client
 
+
+TODO
+----
+
+* [ ] Historical/Obsolete marker
+* [ ] Fluent config

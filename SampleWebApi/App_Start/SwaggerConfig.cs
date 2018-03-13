@@ -1,4 +1,5 @@
 using System.Web.Http;
+using Gasconade.UI;
 using Swashbuckle.Application;
 
 namespace SampleWebApi
@@ -10,7 +11,8 @@ namespace SampleWebApi
             config
                 .EnableSwagger(c =>
                     {
-                        c.SingleApiVersion("v1", "SampleWebApi");
+                        c.SingleApiVersion("v1", "SampleWebApi")
+                            .Description("A sample web application.<br/>For logging details, see "+GasconadeConfig.Link("here"));
                     })
                 .EnableSwaggerUi(c =>
                     {

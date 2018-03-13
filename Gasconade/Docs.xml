@@ -193,6 +193,21 @@
             Extract the description data from the derived instance
             </summary>
         </member>
+        <member name="M:Gasconade.TemplatedLogMessage.GetPropertyDescriptions(System.Type)">
+            <summary>
+            Get a dictionary of (prop name)=>(descriptive text) for all properties public in the type
+            </summary>
+        </member>
+        <member name="M:Gasconade.TemplatedLogMessage.GetDescription(System.Type)">
+            <summary>
+            Extract the description data from a type definition
+            </summary>
+        </member>
+        <member name="M:Gasconade.TemplatedLogMessage.GetTemplateText(System.Type)">
+            <summary>
+            Get the raw message template for the log message type
+            </summary>
+        </member>
         <member name="T:Gasconade.TemplatedLogMessage.PropertyFormatProvider">
             <summary>
             This format provider abuses the 'format' string to look up property values on the parameter object

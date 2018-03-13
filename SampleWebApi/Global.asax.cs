@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Http;
+using ExternalLogDefinitions;
 using Gasconade.UI;
+using SampleWebApi.LogMessages;
 
 namespace SampleWebApi
 {
@@ -10,8 +12,12 @@ namespace SampleWebApi
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configure(SwaggerConfig.Register);
-            GlobalConfiguration.Configure(GasconadeConfig.Register);
-
+            GlobalConfiguration.Configure(GasconadeConfig.Register);        // this adds the Gasconade UI, and any messages in the calling assembly
+            
+            // TODO: fluent config like swagger
+            GasconadeConfig.AddAssembly(typeof(InternalErrorMessage).Assembly);                // this adds messages in the current assembly
+            GasconadeConfig.AddAssembly(typeof(InsultMessage).Assembly);    // this adds external Assembly's log messages
+            GasconadeConfig.AddSwaggerLink();
         }
 
         protected void Application_Error(object sender, EventArgs e)

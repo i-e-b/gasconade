@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade.UI", "Gasconade.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApi", "SampleWebApi\SampleWebApi.csproj", "{C9186167-5739-4E99-9103-2EA8FCFF5A1C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalLogDefinitions", "ExternalLogDefinitions\ExternalLogDefinitions.csproj", "{8AB280E2-56AC-4A19-8715-97911DEA81D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,12 +43,17 @@ Global
 		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9186167-5739-4E99-9103-2EA8FCFF5A1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB280E2-56AC-4A19-8715-97911DEA81D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB280E2-56AC-4A19-8715-97911DEA81D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB280E2-56AC-4A19-8715-97911DEA81D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB280E2-56AC-4A19-8715-97911DEA81D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C9186167-5739-4E99-9103-2EA8FCFF5A1C} = {4A0F568E-42C9-4045-893F-05803A4D92D2}
+		{8AB280E2-56AC-4A19-8715-97911DEA81D9} = {4A0F568E-42C9-4045-893F-05803A4D92D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {824CED53-0CC1-489E-8A85-0D2913DBF06B}
