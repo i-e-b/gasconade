@@ -1,4 +1,8 @@
 # gasconade
+
+<img src="https://github.com/i-e-b/gasconade/raw/master/icon.png"/>
+https://www.nuget.org/packages/Gasconade
+
 A self-documenting logging system for .Net -- like Swagger (UI) for logs.
 
 Concepts

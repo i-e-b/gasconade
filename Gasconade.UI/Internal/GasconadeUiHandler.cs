@@ -10,8 +10,14 @@ using Tag;
 
 namespace Gasconade.UI.Internal
 {
+    /// <summary>
+    /// HTTP handler to show the Gasconade UI
+    /// </summary>
     public class GasconadeUiHandler : HttpMessageHandler
     {
+        /// <summary>
+        /// Core handler
+        /// </summary>
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var all = GasconadeUi.KnownLogTypes().ToList();

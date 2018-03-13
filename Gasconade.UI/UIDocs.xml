@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gasconade.UI</name>
+    </assembly>
+    <members>
+        <member name="T:Gasconade.UI.GasconadeConfigExtensions">
+            <summary>
+            Configuration helper extension for HttpConfiguration object
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeConfigExtensions.EnableGasconadeUi(System.Web.Http.HttpConfiguration,System.Action{Gasconade.UI.GasconadeConfiguratorProxy})">
+            <summary>
+            Add Gasconade UI responders to this configuration, and register log messages from the calling assembly
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeConfigExtensions.EnableGasconadeUi(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Add Gasconade UI responders to this configuration, and register log messages from the calling assembly
+            </summary>
+        </member>
+        <member name="T:Gasconade.UI.GasconadeConfiguratorProxy">
+            <summary>
+            A configuration helper. Calls down to the static GasconadeUi class
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeConfiguratorProxy.AddAssembly(System.Reflection.Assembly)">
+            <summary>
+            Add another assembly to be scanned for log messages.
+            This can be used like `.AddAssembly(typeof(MyMessageClass).Assembly)`
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeConfiguratorProxy.AddSwaggerLink(System.String)">
+            <summary>
+            Include a link back to Swagger (or another URL) in Gasconade
+            </summary>
+        </member>
+        <member name="T:Gasconade.UI.Internal.GasconadeUiHandler">
+            <summary>
+            HTTP handler to show the Gasconade UI
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.Internal.GasconadeUiHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Core handler
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.Internal.GasconadeUiHandler.ListingDocument(System.Collections.Generic.List{System.Type})">
+            <summary>
+            Create a html body that lists out all the known log message types with descriptions
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.Internal.GasconadeUiHandler.EmptyLogsPage">
+            <summary>
+            A page noting that no log messages were found
+            </summary>
+        </member>
+        <member name="T:Gasconade.UI.Internal.HttpRouteDirectionConstraint">
+            <summary>
+            Http redirect helper. Used to direct from the simple 'gasconade' endpoint to the full resource path
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.Internal.HttpRouteDirectionConstraint.#ctor(System.Web.Http.Routing.HttpRouteDirection)">
+            <summary>
+            Create a directional constraint
+            </summary>
+            <param name="allowedDirection"></param>
+        </member>
+        <member name="M:Gasconade.UI.Internal.HttpRouteDirectionConstraint.Match(System.Net.Http.HttpRequestMessage,System.Web.Http.Routing.IHttpRoute,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Web.Http.Routing.HttpRouteDirection)">
+            <summary>
+            Check if the constraint matches the parameters
+            </summary>
+        </member>
+        <member name="T:Gasconade.UI.Internal.RedirectHandler">
+            <summary>
+            Message handler that sends redirection messages
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.Internal.RedirectHandler.#ctor(System.Func{System.Net.Http.HttpRequestMessage,System.String},System.String)">
+            <summary>
+            Create a redirection handler
+            </summary>
+            <param name="rootUrlResolver">Function used to determine the root of the siet</param>
+            <param name="redirectPath">Sub-path from root that is the redirect target</param>
+        </member>
+        <member name="M:Gasconade.UI.Internal.RedirectHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <summary>
+            Handle a HTTP request
+            </summary>
+        </member>
+        <member name="T:Gasconade.UI.GasconadeUi">
+            <summary>
+            Register Gasconade against a WebApi service
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Register against a WebApi service
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.SetStylesheet(System.String)">
+            <summary>
+            Provide raw stylesheet data to be included in the page
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.SetJavascript(System.String)">
+            <summary>
+            Provide raw javascript to be included in the page
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.Link(System.String)">
+            <summary>
+            Build a link to the gasconade docs, with given text.
+            This is designed to work from Swagger UI
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.AddSwaggerLink(System.String)">
+            <summary>
+            Include a link back to Swagger in Gasconade
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.ClearTypes">
+            <summary>
+            Remove all discovered log message types
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.AddAssembly(System.Reflection.Assembly)">
+            <summary>
+            Add another assembly to be scanned for log messages
+            </summary>
+        </member>
+        <member name="M:Gasconade.UI.GasconadeUi.KnownLogTypes">
+            <summary>
+            Return all log message types discovered so far
+            </summary>
+        </member>
+    </members>
+</doc>
