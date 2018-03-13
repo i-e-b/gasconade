@@ -5,7 +5,8 @@ using System.Linq;
 namespace Gasconade
 {
     /// <summary>
-    /// Base class for templated log messages
+    /// Base class for templated log messages.
+    /// This handles most of the template conversion and property reading
     /// </summary>
     public abstract class TemplatedLogMessage {
         /// <summary>
@@ -69,14 +70,18 @@ namespace Gasconade
             if (target == null) return null;
 
             var descAttrs = target.GetCustomAttributes(typeof(LogMessageDescriptionAttribute), true) as LogMessageDescriptionAttribute[];
-            if (descAttrs == null || descAttrs.Length < 1) return new LogTemplateDescription();
+            if (descAttrs == null || descAttrs.Length < 1) descAttrs = new []{new LogMessageDescriptionAttribute(null) };
             var desc = descAttrs.Single();
+            
+            var obsoleteFlag = (target.GetCustomAttributes(typeof(ObsoleteAttribute), true) as ObsoleteAttribute[])?.SingleOrDefault();
 
             return new LogTemplateDescription
             {
                 Causes = desc.Causes,
                 Actions = desc.Actions,
-                Description = desc.Description
+                Description = desc.Description,
+                IsObsolete = obsoleteFlag != null,
+                RetirementMessage = obsoleteFlag?.Message
             };
         }
         

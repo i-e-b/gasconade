@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComplimentMessage.cs" />
+    <Compile Include="DecrepitMessage.cs" />
     <Compile Include="InsultMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

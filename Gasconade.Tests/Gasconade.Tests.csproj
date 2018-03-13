@@ -46,6 +46,7 @@
     <Compile Include="BasicTests.cs" />
     <Compile Include="SampleMessages\MismatchMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleMessages\OldMessage.cs" />
     <Compile Include="SampleMessages\TestMessage.cs" />
     <Compile Include="UiIntegrationTests.cs" />
   </ItemGroup>

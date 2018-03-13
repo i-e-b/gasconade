@@ -70,6 +70,27 @@ namespace Gasconade.Tests
         }
 
         [Test]
+        public void normal_messages_have_a_false_obsolete_flag_and_no_retirement_reason()
+        {
+            var subject = new TestMessage { Target = "Paul", Subject = "Phil" };
+            var result = subject.GetDescription();
+
+            Assert.That(result.IsObsolete, Is.False);
+            Assert.That(result.RetirementMessage, Is.Null);
+        }
+
+        [Test]
+        public void obsolete_messages_have_a_true_obsolete_flag_and_a_retirement_reason () {
+#pragma warning disable 618
+            var subject = new OldMessage { Problem = "Snakes on a plane" };
+            var result = subject.GetDescription();
+
+            Assert.That(result.IsObsolete, Is.True);
+            Assert.That(result.RetirementMessage, Is.EqualTo("Problem shipping system removed 2018-01-01"));
+#pragma warning restore 618
+        }
+
+        [Test]
         public void static_logger_writes_expanded_messages_to_consumers() {
             var dummyListener = new DummyListener();
             Log.AddListener(dummyListener);

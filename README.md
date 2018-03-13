@@ -40,5 +40,4 @@ public class FailedToSend {
 TODO
 ----
 
-* [ ] Historical/Obsolete marker
-* [ ] Fluent config
+* Fluent config

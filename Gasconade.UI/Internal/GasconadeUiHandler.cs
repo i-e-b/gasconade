@@ -32,24 +32,30 @@ namespace Gasconade.UI.Internal
             }
             lines.Add(T.g("h1")["Log Documentation"]);
 
-            foreach (var type in all)
+            var sorted = all.Select(ReadTemplateMetadata).OrderBy(m=>m.Description.IsObsolete).ThenBy(m=>m.Name);
+
+            foreach (var info in sorted)
             {
                 var block = T.g("div", "class","MessageBlock");
-                block.Add(T.g("h3",  "class","header",  "id",type.FullName)[type.Name]);
 
-                if ( ! type.IsSubclassOf(typeof(TemplatedLogMessage))) { AddSubtypeWarning(block); }
 
-                var tmpl = TemplatedLogMessage.GetTemplateText(type);
-                var desc = TemplatedLogMessage.GetDescription(type);
-                var props = TemplatedLogMessage.GetPropertyDescriptions(type);
+                // Title and warnings
+                if (!string.IsNullOrWhiteSpace(info.Description.RetirementMessage)) {
+                    block.Add(T.g("p", "class","titleNote")[info.Description.RetirementMessage]);
+                }
+                block.Add(T.g("h3", "class", "header", "id", info.FullName)[info.Name]);
+                if ( ! info.IsCorrectHierarchy) { AddSubtypeWarning(block); }
 
-                if (string.IsNullOrWhiteSpace(tmpl)) {
+                // Template
+                if (string.IsNullOrWhiteSpace(info.Template)) {
                     block.Add(T.g("i")["This message has no template, and will be given a default message"]);
+                } else if (info.Description.IsObsolete) {
+                    block.Add(T.g("code", "class","obsoleteTemplate")[info.Template]);
                 } else {
-                    block.Add(T.g("code", "class","template")[tmpl]);
+                    block.Add(T.g("code", "class","template")[info.Template]);
                 }
 
-                block.Add(BuildDetailsExpander(type, desc, props));
+                block.Add(BuildDetailsExpander(info));
 
                 lines.Add(block);
             }
@@ -57,32 +63,44 @@ namespace Gasconade.UI.Internal
             return lines;
         }
 
-        private static TagContent BuildDetailsExpander(Type type, LogTemplateDescription desc, Dictionary<string, string> props)
+        private static TemplateMetadata ReadTemplateMetadata(Type type)
         {
-            var expando = T.g("div",  "class","expando",  "id","expand_" + type.FullName);
-            if (!string.IsNullOrWhiteSpace(desc.Description))
+            return new TemplateMetadata{
+                Name = type.Name,
+                FullName = type.FullName,
+                IsCorrectHierarchy = type.IsSubclassOf(typeof(TemplatedLogMessage)),
+                Description = TemplatedLogMessage.GetDescription(type),
+                Properties = TemplatedLogMessage.GetPropertyDescriptions(type),
+                Template = TemplatedLogMessage.GetTemplateText(type)
+            };
+        }
+
+        private static TagContent BuildDetailsExpander(TemplateMetadata info)
+        {
+            var expando = T.g("div",  "class","expando",  "id","expand_" + info.FullName);
+            if (!string.IsNullOrWhiteSpace(info.Description.Description))
             {
                 expando.Add(T.g("h4")["Description"]);
-                expando.Add(T.g("p", "class", "informative")[desc.Description]);
+                expando.Add(T.g("p", "class", "informative")[info.Description.Description]);
             }
 
-            if (!string.IsNullOrWhiteSpace(desc.Causes))
+            if (!string.IsNullOrWhiteSpace(info.Description.Causes))
             {
                 expando.Add(T.g("h4")["Causes"]);
-                expando.Add(T.g("p", "class", "informative")[desc.Causes]);
+                expando.Add(T.g("p", "class", "informative")[info.Description.Causes]);
             }
 
-            if (!string.IsNullOrWhiteSpace(desc.Actions))
+            if (!string.IsNullOrWhiteSpace(info.Description.Actions))
             {
                 expando.Add(T.g("h4")["Actions"]);
-                expando.Add(T.g("p", "class", "informative")[desc.Actions]);
+                expando.Add(T.g("p", "class", "informative")[info.Description.Actions]);
             }
 
-            if (props.Count > 0)
+            if (info.Properties.Count > 0)
             {
                 expando.Add(T.g("h4")["Properties"]);
                 var defs = T.g("dl");
-                foreach (var prop in props)
+                foreach (var prop in info.Properties)
                 {
                     defs.Add(T.g("dt")[prop.Key]);
                     defs.Add(T.g("dd")[prop.Value]);
@@ -167,8 +185,18 @@ function blockToggle(mouseEvt) {
     background-color: #ddf;
     display: block;
 }
+.obsoleteTemplate {
+    padding: 1em 2em;
+    font-family: monospace;
+    background-color: #fdd;
+    display: block;
+}
 .expando {
     display:none;
+}
+.titleNote {
+    float: right;
+    margin-right: 1em;
 }
 .MessageBlock:nth-child(odd) {
     background-color: #fff;
@@ -184,6 +212,7 @@ h1, h2, h4 {
 }
 h3 {
     padding: 0.5em;
+    margin: 0;
     background-color: #ddd;
 }
 h3:hover { background-color: #ccc; }

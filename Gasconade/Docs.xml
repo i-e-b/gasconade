@@ -173,9 +173,20 @@
             Optional: A description of action to be taken based on the log being triggered
             </summary>
         </member>
+        <member name="P:Gasconade.LogTemplateDescription.IsObsolete">
+            <summary>
+            If true, the message has been retired, and is recorded for historical purposes only
+            </summary>
+        </member>
+        <member name="P:Gasconade.LogTemplateDescription.RetirementMessage">
+            <summary>
+            Optional: (if `IsObsolete` is true) A description of why the message was retired
+            </summary>
+        </member>
         <member name="T:Gasconade.TemplatedLogMessage">
             <summary>
-            Base class for templated log messages
+            Base class for templated log messages.
+            This handles most of the template conversion and property reading
             </summary>
         </member>
         <member name="M:Gasconade.TemplatedLogMessage.ToString">

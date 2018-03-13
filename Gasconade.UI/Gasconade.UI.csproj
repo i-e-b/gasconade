@@ -50,6 +50,7 @@
     <Compile Include="Internal\GasconadeUiHandler.cs" />
     <Compile Include="GasconadeConfig.cs" />
     <Compile Include="Internal\HttpRouteDirectionConstraint.cs" />
+    <Compile Include="Internal\TemplateMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\RedirectHandler.cs" />
   </ItemGroup>
