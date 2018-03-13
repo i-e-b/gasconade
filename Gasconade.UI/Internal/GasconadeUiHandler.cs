@@ -35,15 +35,9 @@ namespace Gasconade.UI.Internal
             foreach (var type in all)
             {
                 var block = T.g("div", "class","MessageBlock");
-                block.Add(T.g("h3")[type.Name]);
-                if ( ! type.IsSubclassOf(typeof(TemplatedLogMessage))) {
-                    block.Add(T.g("p")[
-                        T.g("b")["Note: "],
-                        "This type does not derive from ",
-                        T.g("code")["Gasconade.TemplatedLogMessage"],
-                        " and can't be sent"
-                    ]);
-                }
+                block.Add(T.g("h3",  "class","header",  "id",type.FullName)[type.Name]);
+
+                if ( ! type.IsSubclassOf(typeof(TemplatedLogMessage))) { AddSubtypeWarning(block); }
 
                 var tmpl = TemplatedLogMessage.GetTemplateText(type);
                 var desc = TemplatedLogMessage.GetDescription(type);
@@ -55,36 +49,59 @@ namespace Gasconade.UI.Internal
                     block.Add(T.g("code", "class","template")[tmpl]);
                 }
 
-                if ( ! string.IsNullOrWhiteSpace(desc.Description)) {
-                    block.Add(T.g("h4")["Description"]);
-                    block.Add(T.g("p", "class","informative")[desc.Description]);
-                }
-
-                if ( ! string.IsNullOrWhiteSpace(desc.Causes)) {
-                    block.Add(T.g("h4")["Causes"]);
-                    block.Add(T.g("p", "class","informative")[desc.Causes]);
-                }
-
-                if ( ! string.IsNullOrWhiteSpace(desc.Actions)) {
-                    block.Add(T.g("h4")["Actions"]);
-                    block.Add(T.g("p", "class","informative")[desc.Actions]);
-                }
-
-                if (props.Count > 0) {
-                    block.Add(T.g("h4")["Properties"]);
-                    var defs = T.g("dl");
-                    foreach (var prop in props)
-                    {
-                        defs.Add(T.g("dt")[prop.Key]);
-                        defs.Add(T.g("dd")[prop.Value]);
-                    }
-                    block.Add(defs);
-                }
+                block.Add(BuildDetailsExpander(type, desc, props));
 
                 lines.Add(block);
             }
 
             return lines;
+        }
+
+        private static TagContent BuildDetailsExpander(Type type, LogTemplateDescription desc, Dictionary<string, string> props)
+        {
+            var expando = T.g("div",  "class","expando",  "id","expand_" + type.FullName);
+            if (!string.IsNullOrWhiteSpace(desc.Description))
+            {
+                expando.Add(T.g("h4")["Description"]);
+                expando.Add(T.g("p", "class", "informative")[desc.Description]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(desc.Causes))
+            {
+                expando.Add(T.g("h4")["Causes"]);
+                expando.Add(T.g("p", "class", "informative")[desc.Causes]);
+            }
+
+            if (!string.IsNullOrWhiteSpace(desc.Actions))
+            {
+                expando.Add(T.g("h4")["Actions"]);
+                expando.Add(T.g("p", "class", "informative")[desc.Actions]);
+            }
+
+            if (props.Count > 0)
+            {
+                expando.Add(T.g("h4")["Properties"]);
+                var defs = T.g("dl");
+                foreach (var prop in props)
+                {
+                    defs.Add(T.g("dt")[prop.Key]);
+                    defs.Add(T.g("dd")[prop.Value]);
+                }
+
+                expando.Add(defs);
+            }
+
+            return expando;
+        }
+
+        private static void AddSubtypeWarning(TagContent block)
+        {
+            block.Add(T.g("p")[
+                T.g("b")["Note: "],
+                "This type does not derive from ",
+                T.g("code")["Gasconade.TemplatedLogMessage"],
+                " and can't be sent"
+            ]);
         }
 
         /// <summary>
@@ -104,6 +121,7 @@ namespace Gasconade.UI.Internal
         {
             if (body.Tag != "body") body = T.g("body")[body];
 
+            body.Add(T.g("script", "type","text/javascript")[GetScriptData()]);
 
             var content = T.g("html")[
                 T.g("head")[
@@ -119,6 +137,24 @@ namespace Gasconade.UI.Internal
             return Task.FromResult(sampleMessage);
         }
 
+        private static string GetScriptData()
+        {
+            if ( ! string.IsNullOrWhiteSpace(GasconadeConfig.ScriptText)) return GasconadeConfig.ScriptText;
+
+            return @"
+function blockToggle(mouseEvt) {
+    var trg = document.getElementById('expand_' + mouseEvt.target.id);
+    trg.style.display = (trg.style.display == 'block') ? 'none' : 'block';
+}
+(function (){
+    var all = document.getElementsByClassName('header');
+    for(var i=0; i<all.length;i++){
+        all[i].onclick = blockToggle;  
+    }
+})();
+";
+        }
+
         private static string GetStyleData()
         {
             if ( ! string.IsNullOrWhiteSpace(GasconadeConfig.StylesheetText)) return GasconadeConfig.StylesheetText;
@@ -131,6 +167,9 @@ namespace Gasconade.UI.Internal
     background-color: #ddf;
     display: block;
 }
+.expando {
+    display:none;
+}
 .MessageBlock:nth-child(odd) {
     background-color: #fff;
     margin: 10;
@@ -139,13 +178,16 @@ namespace Gasconade.UI.Internal
     background-color: #eee;
     margin: 10;
 }
-h1, h2, h3, h4 {
+h1, h2, h4 {
     margin: 1em 0 0.5em;
     line-height: 1.25;
 }
 h3 {
+    padding: 0.5em;
     background-color: #ddd;
 }
+h3:hover { background-color: #ccc; }
+h3:active { background-color: #bbb; }
 body {
     margin: 0;
     padding: 0;

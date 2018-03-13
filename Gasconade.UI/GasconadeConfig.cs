@@ -17,6 +17,7 @@ namespace Gasconade.UI
     {
         private static readonly List<Type> _discoveredTypes = new List<Type>();
         internal static string StylesheetText;
+        internal static string ScriptText;
         internal static string ReturnLink;
 
         /// <summary>
@@ -39,12 +40,19 @@ namespace Gasconade.UI
         }
 
         /// <summary>
+        /// Provide raw javascript to be included in the page
+        /// </summary>
+        public static void AddJavascript(string script) {
+            ScriptText = script;
+        }
+
+        /// <summary>
         /// Build a link to the gasconade docs, with given text.
         /// This is designed to work from Swagger UI
         /// </summary>
         public static string Link(string text)
         {
-            return "<a href=\"../../gasconade\" target=\"_this\">"+text+"</a>";
+            return "<a href=\"../../gasconade\">"+text+"</a>";
         }
 
         /// <summary>
