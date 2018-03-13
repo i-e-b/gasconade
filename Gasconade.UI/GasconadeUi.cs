@@ -13,7 +13,7 @@ namespace Gasconade.UI
     /// <summary>
     /// Register Gasconade against a WebApi service
     /// </summary>
-    public static class GasconadeConfig
+    public class GasconadeUi
     {
         private static readonly List<Type> _discoveredTypes = new List<Type>();
         internal static string StylesheetText;
@@ -25,7 +25,7 @@ namespace Gasconade.UI
         /// </summary>
         public static void Register(HttpConfiguration httpConfig){
 
-            httpConfig.Routes.MapHttpRoute("GasconadeConfig", "gasconade/ui/{*assetPath}", null, new { assetPath = ".+" }, new GasconadeUiHandler());
+            httpConfig.Routes.MapHttpRoute("GasconadeUi", "gasconade/ui/{*assetPath}", null, new { assetPath = ".+" }, new GasconadeUiHandler());
 
             httpConfig.Routes.MapHttpRoute("GasconadeConfig_shortcut", "gasconade", null, new {
                 uriResolution = new HttpRouteDirectionConstraint(HttpRouteDirection.UriResolution)
@@ -35,14 +35,14 @@ namespace Gasconade.UI
         /// <summary>
         /// Provide raw stylesheet data to be included in the page
         /// </summary>
-        public static void AddStylesheet(string stylesheet) {
+        public static void SetStylesheet(string stylesheet) {
             StylesheetText = stylesheet;
         }
 
         /// <summary>
         /// Provide raw javascript to be included in the page
         /// </summary>
-        public static void AddJavascript(string script) {
+        public static void SetJavascript(string script) {
             ScriptText = script;
         }
 

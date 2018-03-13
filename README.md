@@ -36,8 +36,55 @@ public class FailedToSend {
 ### Sample Result:
 > Could not send message to WhizbangSvc because it was rejected by client
 
+Gasconade UI
+------------
 
-TODO
-----
+Currently supplied for .Net MVC WebApi projects.
+Add in global config like:
+```csharp
+protected void Application_Start() {
+    . . .
+    GlobalConfiguration.Configure(MyGasconadeConfig.Register);
+}
+```
 
-* Fluent config
+And a class like:
+```csharp
+public class GasconadeConfig {
+    public static void Register(HttpConfiguration config) {
+        config.EnableGasconadeUi();
+    }
+}
+```
+
+That should enable a link at `http(s)://. . ./gasconade` that exposes the UI.
+You can add a link from your SwaggerUI like this:
+
+```csharp
+config.EnableSwagger(c => {
+            c.SingleApiVersion("v1", "SampleWebApi")
+             .Description("A sample web application.<br/>For logging details, see " + GasconadeUi.Link("here"));
+        })
+    .EnableSwaggerUi(c => {
+            c.DocumentTitle("My Swagger UI");
+        });
+```
+
+If your message definitions are in a different assembly, you can add them like this:
+
+```csharp
+config.EnableGasconadeUi(c =>
+    {
+        c.AddAssembly(typeof(AnyMessageInTheProject).Assembly);
+    });
+```
+
+You can add a link back to Swagger UI like this:
+
+```csharp
+config.EnableGasconadeUi(c =>
+    {
+        . . .
+        c.AddSwaggerLink();
+    });
+```

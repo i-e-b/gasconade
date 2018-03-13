@@ -14,7 +14,7 @@ namespace Gasconade.UI.Internal
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var all = GasconadeConfig.KnownLogTypes().ToList();
+            var all = GasconadeUi.KnownLogTypes().ToList();
 
             if ( ! all.Any()) {
                 return TagHttpPage(EmptyLogsPage());
@@ -23,12 +23,15 @@ namespace Gasconade.UI.Internal
             return TagHttpPage(ListingDocument(all));
         }
 
+        /// <summary>
+        /// Create a html body that lists out all the known log message types with descriptions
+        /// </summary>
         public static TagContent ListingDocument(List<Type> all)
         {
             var lines = T.g();
             lines.Add(T.g("i")["Gasconade "]);
-            if (! string.IsNullOrWhiteSpace(GasconadeConfig.ReturnLink)) {
-                lines.Add(T.g("a", "href",GasconadeConfig.ReturnLink)["Return to API docs"]);
+            if (! string.IsNullOrWhiteSpace(GasconadeUi.ReturnLink)) {
+                lines.Add(T.g("a", "href",GasconadeUi.ReturnLink)["Return to API docs"]);
             }
             lines.Add(T.g("h1")["Log Documentation"]);
 
@@ -38,29 +41,44 @@ namespace Gasconade.UI.Internal
             {
                 var block = T.g("div", "class","MessageBlock");
 
-
-                // Title and warnings
-                if (!string.IsNullOrWhiteSpace(info.Description.RetirementMessage)) {
-                    block.Add(T.g("p", "class","titleNote")[info.Description.RetirementMessage]);
-                }
-                block.Add(T.g("h3", "class", "header", "id", info.FullName)[info.Name]);
-                if ( ! info.IsCorrectHierarchy) { AddSubtypeWarning(block); }
-
-                // Template
-                if (string.IsNullOrWhiteSpace(info.Template)) {
-                    block.Add(T.g("i")["This message has no template, and will be given a default message"]);
-                } else if (info.Description.IsObsolete) {
-                    block.Add(T.g("code", "class","obsoleteTemplate")[info.Template]);
-                } else {
-                    block.Add(T.g("code", "class","template")[info.Template]);
-                }
-
+                AddTitle(info, block);
+                AddTemplate(info, block);
                 block.Add(BuildDetailsExpander(info));
 
                 lines.Add(block);
             }
 
             return lines;
+        }
+
+        private static void AddTemplate(TemplateMetadata info, TagContent block)
+        {
+            if (string.IsNullOrWhiteSpace(info.Template))
+            {
+                block.Add(T.g("i")["This message has no template, and will be given a default message"]);
+            }
+            else if (info.Description.IsObsolete)
+            {
+                block.Add(T.g("code", "class", "obsoleteTemplate")[info.Template]);
+            }
+            else
+            {
+                block.Add(T.g("code", "class", "template")[info.Template]);
+            }
+        }
+
+        private static void AddTitle(TemplateMetadata info, TagContent block)
+        {
+            if (!string.IsNullOrWhiteSpace(info.Description.RetirementMessage))
+            {
+                block.Add(T.g("p", "class", "titleNote")[info.Description.RetirementMessage]);
+            }
+
+            block.Add(T.g("h3", "class", "header", "id", info.FullName)[info.Name]);
+            if (!info.IsCorrectHierarchy)
+            {
+                AddSubtypeWarning(block);
+            }
         }
 
         private static TemplateMetadata ReadTemplateMetadata(Type type)
@@ -131,7 +149,7 @@ namespace Gasconade.UI.Internal
                 T.g("body")[
                     T.g("h1")["No logs found"],
                     T.g("p")["This site either does not have any logs, or Gasconade has not been correctly configured"],
-                    T.g("p")["Check you have called 'GasconadeConfig.AddAssembly(typeof(AMessageType).Assembly);' "]
+                    T.g("p")["Check you have called 'GasconadeUi.AddAssembly(typeof(AMessageType).Assembly);' "]
                 ] ;
         }
 
@@ -157,7 +175,7 @@ namespace Gasconade.UI.Internal
 
         private static string GetScriptData()
         {
-            if ( ! string.IsNullOrWhiteSpace(GasconadeConfig.ScriptText)) return GasconadeConfig.ScriptText;
+            if ( ! string.IsNullOrWhiteSpace(GasconadeUi.ScriptText)) return GasconadeUi.ScriptText;
 
             return @"
 function blockToggle(mouseEvt) {
@@ -175,7 +193,7 @@ function blockToggle(mouseEvt) {
 
         private static string GetStyleData()
         {
-            if ( ! string.IsNullOrWhiteSpace(GasconadeConfig.StylesheetText)) return GasconadeConfig.StylesheetText;
+            if ( ! string.IsNullOrWhiteSpace(GasconadeUi.StylesheetText)) return GasconadeUi.StylesheetText;
 
             return @"
 .template {

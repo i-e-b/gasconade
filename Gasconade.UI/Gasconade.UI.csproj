@@ -47,8 +47,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GasconadeConfigExtensions.cs" />
+    <Compile Include="GasconadeConfiguratorProxy.cs" />
     <Compile Include="Internal\GasconadeUiHandler.cs" />
-    <Compile Include="GasconadeConfig.cs" />
+    <Compile Include="GasconadeUi.cs" />
     <Compile Include="Internal\HttpRouteDirectionConstraint.cs" />
     <Compile Include="Internal\TemplateMetadata.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
