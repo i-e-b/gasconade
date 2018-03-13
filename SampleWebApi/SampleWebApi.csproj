@@ -137,6 +137,8 @@
     <Compile Include="App_Start\GasconadeConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="FileWriterLog.cs" />
+    <Compile Include="LogMessages\SampleMessage.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

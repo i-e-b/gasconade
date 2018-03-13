@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Http;
+using Gasconade;
 
 namespace SampleWebApi
 {
@@ -10,6 +11,8 @@ namespace SampleWebApi
             GlobalConfiguration.Configure(WebApiConfig.Register);
             GlobalConfiguration.Configure(SwaggerConfig.Register);
             GlobalConfiguration.Configure(GasconadeConfig.Register);
+
+            Log.AddListener(new FileWriterLog(@"C:\Temp\Log\GasconadeDemoLog.txt"));
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -22,5 +25,4 @@ namespace SampleWebApi
             Response.End();
         }
     }
-
 }

@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
+using Gasconade;
+using SampleWebApi.LogMessages;
 
 namespace SampleWebApi.Controllers
 {
@@ -9,25 +12,8 @@ namespace SampleWebApi.Controllers
         [Route("")]
         public IEnumerable<string> Get()
         {
+            Log.Info(new SampleMessage{ Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") });
             return new[] { "value1", "value2" };
-        }
-
-        [Route("{id}")]
-        public string Get(int id)
-        {
-            return "What, what?";
-        }
-
-        public void Post([FromBody]string value)
-        {
-        }
-
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        public void Delete(int id)
-        {
         }
     }
 }
