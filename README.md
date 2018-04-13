@@ -28,7 +28,7 @@ Log.Warning(new FailedToSend{Client="WhizbangSvc", Reason="it was rejected by cl
 [LogMessageDescription("A message was to be sent to a 3rd party client, but a non-network error occured.",
                        Causes = "Sent as a warning if it is not customer-impacting, as an error otherwise.",
                        Actions = "Check configuration matches accounts if one client gets repeated errors.")]
-public class FailedToSend {
+public class FailedToSend : TemplatedLogMessage {
     [LogParam("The 3rd party we were trying to send to")]
     public string Client {get;set;}
 
