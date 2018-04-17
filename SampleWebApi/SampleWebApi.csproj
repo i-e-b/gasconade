@@ -169,7 +169,7 @@
       <Project>{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}</Project>
       <Name>Gasconade.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GasconadeStd\Gasconade.csproj">
+    <ProjectReference Include="..\Gasconade\Gasconade.csproj">
       <Project>{4017d40d-05aa-426a-bbd5-f20daaf4d64d}</Project>
       <Name>Gasconade</Name>
     </ProjectReference>

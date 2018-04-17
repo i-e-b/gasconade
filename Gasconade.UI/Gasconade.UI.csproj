@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>UIDocs.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Gasconade.UI.xml</DocumentationFile>
     <WarningsAsErrors>CS1591;1591</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>UIDocs.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Gasconade.UI.xml</DocumentationFile>
     <WarningsAsErrors>CS1591;1591</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
@@ -66,7 +66,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GasconadeStd\Gasconade.csproj">
+    <ProjectReference Include="..\Gasconade\Gasconade.csproj">
       <Project>{4017d40d-05aa-426a-bbd5-f20daaf4d64d}</Project>
       <Name>Gasconade</Name>
     </ProjectReference>

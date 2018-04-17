@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GasconadeStd\Gasconade.csproj" />
+    <ProjectReference Include="..\Gasconade\Gasconade.csproj" />
   </ItemGroup>
 
   <ItemGroup>

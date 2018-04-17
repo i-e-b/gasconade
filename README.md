@@ -1,4 +1,4 @@
-# gasconade
+# Gasconade
 
 <img src="https://github.com/i-e-b/gasconade/raw/master/icon.png"/>
 https://www.nuget.org/packages/Gasconade
@@ -40,10 +40,20 @@ public class FailedToSend : TemplatedLogMessage {
 ### Sample Result:
 > Could not send message to WhizbangSvc because it was rejected by client
 
-Gasconade UI
-------------
+# Gasconade UI
 
-Currently supplied for .Net MVC WebApi projects.
+## Aspnet Core MVC
+
+Add to application configuration like:
+```csharp
+app.UseMvc();
+app.UseGasconadeUI(config => {
+    config.AddAssembly(typeof(AnyMessageInTheProject).Assembly);
+});
+```
+
+## .Net Framework MVC WebApi
+
 Add in global config like:
 ```csharp
 protected void Application_Start() {
@@ -61,7 +71,9 @@ public class GasconadeConfig {
 }
 ```
 
-That should enable a link at `http(s)://. . ./gasconade` that exposes the UI.
+## Accessing the UI
+
+If the setup is correct, there should be a route at `http(s)://. . ./gasconade` that exposes the UI.
 You can add a link from your SwaggerUI like this:
 
 ```csharp

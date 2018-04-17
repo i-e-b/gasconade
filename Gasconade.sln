@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleCoreWeb", "SampleCore
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade.UI.Core", "Gasconade.UI.Core\Gasconade.UI.Core.csproj", "{ED3EACB5-4FC7-403B-8312-02EAABF553F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade", "GasconadeStd\Gasconade.csproj", "{4017D40D-05AA-426A-BBD5-F20DAAF4D64D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gasconade", "Gasconade\Gasconade.csproj", "{4017D40D-05AA-426A-BBD5-F20DAAF4D64D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
