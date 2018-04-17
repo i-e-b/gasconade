@@ -126,6 +126,9 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
+    <Reference Include="Tag, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Tag.1.1.0\lib\netstandard1.2\Tag.dll</HintPath>
+    </Reference>
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -166,8 +169,8 @@
       <Project>{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}</Project>
       <Name>Gasconade.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Gasconade\Gasconade.csproj">
-      <Project>{626885D6-1EBF-4BD8-95CD-D9C934EB932B}</Project>
+    <ProjectReference Include="..\GasconadeStd\Gasconade.csproj">
+      <Project>{4017d40d-05aa-426a-bbd5-f20daaf4d64d}</Project>
       <Name>Gasconade</Name>
     </ProjectReference>
   </ItemGroup>

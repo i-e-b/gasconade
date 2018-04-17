@@ -11,17 +11,16 @@ namespace Gasconade.UI
         /// Add another assembly to be scanned for log messages.
         /// This can be used like `.AddAssembly(typeof(MyMessageClass).Assembly)`
         /// </summary>
-        public void AddAssembly(Assembly assembly)
-        {
-            GasconadeUi.AddAssembly(assembly);
-        }
-        
+        public void AddAssembly(Assembly assembly) => GasconadeUi.AddAssembly(assembly);
+
         /// <summary>
         /// Include a link back to Swagger (or another URL) in Gasconade
         /// </summary>
-        public void AddSwaggerLink(string link = null)
-        {
-            GasconadeUi.AddSwaggerLink(link);
-        }
+        public void AddSwaggerLink(string link = null) => GasconadeUi.AddSwaggerLink(link);
+
+        /// <summary>
+        /// Additional HTML added to the top of the Gasconade UI page
+        /// </summary>
+        public void AddHeaderHtml(string html) => GasconadeUi.HeaderHtml = html;
     }
 }

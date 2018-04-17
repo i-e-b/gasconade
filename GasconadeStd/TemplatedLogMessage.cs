@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Gasconade
 {
@@ -31,7 +32,7 @@ namespace Gasconade
         {
             var type = GetType();
             var typeName = type.Name;
-            var props = type.GetProperties().Where(p=>p.CanRead).Select(p=>p.Name + " = '" + p.GetValue(this) + "'");
+            var props = type.GetRuntimeProperties().Where(p=>p.CanRead).Select(p=>p.Name + " = '" + p.GetValue(this) + "'");
 
             return "Message of type: " + typeName + "; " + string.Join(", ", props);
         }
@@ -48,7 +49,7 @@ namespace Gasconade
         /// </summary>
         public static Dictionary<string, string> GetPropertyDescriptions(Type target)
         {
-            var props = target.GetProperties().Where(p=>p.CanRead);//.Select(p=>p.Name + " = '" + p.GetValue(this) + "'");
+            var props = target.GetRuntimeProperties().Where(p=>p.CanRead);//.Select(p=>p.Name + " = '" + p.GetValue(this) + "'");
 
             var outp = new Dictionary<string,string>();
 
@@ -69,11 +70,11 @@ namespace Gasconade
         public static LogTemplateDescription GetDescription(Type target) {
             if (target == null) return null;
 
-            var descAttrs = target.GetCustomAttributes(typeof(LogMessageDescriptionAttribute), true) as LogMessageDescriptionAttribute[];
+            var descAttrs = target.GetTypeInfo().GetCustomAttributes(typeof(LogMessageDescriptionAttribute), true) as LogMessageDescriptionAttribute[];
             if (descAttrs == null || descAttrs.Length < 1) descAttrs = new []{new LogMessageDescriptionAttribute(null) };
             var desc = descAttrs.Single();
             
-            var obsoleteFlag = (target.GetCustomAttributes(typeof(ObsoleteAttribute), true) as ObsoleteAttribute[])?.SingleOrDefault();
+            var obsoleteFlag = (target.GetTypeInfo().GetCustomAttributes(typeof(ObsoleteAttribute), true) as ObsoleteAttribute[])?.SingleOrDefault();
 
             return new LogTemplateDescription
             {
@@ -89,7 +90,7 @@ namespace Gasconade
         /// Get the raw message template for the log message type
         /// </summary>
         public static string GetTemplateText(Type target) {
-            var attrs = target.GetCustomAttributes(typeof(LogMessageTemplateAttribute), true) as LogMessageTemplateAttribute[];
+            var attrs = target.GetTypeInfo().GetCustomAttributes(typeof(LogMessageTemplateAttribute), true) as LogMessageTemplateAttribute[];
             if (attrs == null || attrs.Length < 1) return null;
 
             return attrs.Single().MessageTemplate;
@@ -106,7 +107,7 @@ namespace Gasconade
             {
                 try
                 {
-                    var prop = arg.GetType().GetProperty(format);
+                    var prop = arg.GetType().GetRuntimeProperty(format);
                     if (prop == null) return "{?" + format + "}"; // no such property (template is wrong?)
                     return prop.GetValue(arg)?.ToString() ?? "<null>";
                 }

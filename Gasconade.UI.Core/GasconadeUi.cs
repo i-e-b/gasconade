@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
-using System.Web.Http;
-using System.Web.Http.Routing;
-using Gasconade.UI.Internal;
 
-namespace Gasconade.UI
+namespace Gasconade.UI.Core
 {
     /// <summary>
-    /// Register Gasconade against a WebApi service
+    /// Options and settings for Gasconade UI middleware
     /// </summary>
     public class GasconadeUi
     {
+        /// <summary>
+        /// Path prefix that the UI will be available on
+        /// </summary>
+        public static string RoutePrefix { get; set; }
+
         /// <summary>
         /// Additional HTML added to the top of the Gasconade UI page
         /// </summary>
@@ -26,15 +26,11 @@ namespace Gasconade.UI
         internal static string ReturnLink;
 
         /// <summary>
-        /// Register against a WebApi service
+        /// Create new settings with defaults
         /// </summary>
-        public static void Register(HttpConfiguration httpConfig){
-
-            httpConfig.Routes.MapHttpRoute("GasconadeUi", "gasconade/ui/{*assetPath}", null, new { assetPath = ".+" }, new GasconadeUiHandler());
-
-            httpConfig.Routes.MapHttpRoute("GasconadeConfig_shortcut", "gasconade", null, new {
-                uriResolution = new HttpRouteDirectionConstraint(HttpRouteDirection.UriResolution)
-            }, new RedirectHandler(DefaultRootUrlResolver, "gasconade/ui/index"));
+        static GasconadeUi()
+        {
+            RoutePrefix = "gasconade";
         }
 
         /// <summary>
@@ -89,24 +85,7 @@ namespace Gasconade.UI
         public static IEnumerable<Type> KnownLogTypes() {
             return _discoveredTypes.Select(id=>id);
         }
-
-        private static string GetHeaderValue(HttpRequestMessage request, string headerName)
-        {
-            return !request.Headers.TryGetValues(headerName, out var values) ? null : values.FirstOrDefault();
-        }
-
-        private static string DefaultRootUrlResolver(HttpRequestMessage request)
-        {
-            return new UriBuilder(
-                    GetHeaderValue(request, "X-Forwarded-Proto") ?? request.RequestUri.Scheme,
-                    GetHeaderValue(request, "X-Forwarded-Host") ?? request.RequestUri.Host,
-                    int.Parse(GetHeaderValue(request, "X-Forwarded-Port") ?? request.RequestUri.Port.ToString(CultureInfo.InvariantCulture)),
-                    (GetHeaderValue(request, "X-Forwarded-Prefix") ?? string.Empty) + request.GetConfiguration().VirtualPathRoot)
-                .Uri
-                .AbsoluteUri
-                .TrimEnd('/');
-        }
-
+        
         private static List<Type> GetTemplateTypes(Assembly assm)
         {
             return assm.GetTypes().Where(IsLogTemplate).ToList();

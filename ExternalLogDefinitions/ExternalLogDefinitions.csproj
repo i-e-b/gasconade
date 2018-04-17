@@ -40,8 +40,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gasconade\Gasconade.csproj">
-      <Project>{626885D6-1EBF-4BD8-95CD-D9C934EB932B}</Project>
+    <ProjectReference Include="..\GasconadeStd\Gasconade.csproj">
+      <Project>{4017d40d-05aa-426a-bbd5-f20daaf4d64d}</Project>
       <Name>Gasconade</Name>
     </ProjectReference>
   </ItemGroup>

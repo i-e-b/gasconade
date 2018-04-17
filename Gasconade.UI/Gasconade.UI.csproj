@@ -48,7 +48,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="Tag, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Tag.1.0.1\lib\net46\Tag.dll</HintPath>
+      <HintPath>..\packages\Tag.1.1.0\lib\netstandard1.2\Tag.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -66,8 +66,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gasconade\Gasconade.csproj">
-      <Project>{626885D6-1EBF-4BD8-95CD-D9C934EB932B}</Project>
+    <ProjectReference Include="..\GasconadeStd\Gasconade.csproj">
+      <Project>{4017d40d-05aa-426a-bbd5-f20daaf4d64d}</Project>
       <Name>Gasconade</Name>
     </ProjectReference>
   </ItemGroup>
