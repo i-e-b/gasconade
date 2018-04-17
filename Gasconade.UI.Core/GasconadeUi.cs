@@ -53,7 +53,7 @@ namespace Gasconade.UI.Core
         /// </summary>
         public static string Link(string text)
         {
-            return "<a href=\"../../gasconade\">"+text+"</a>";
+            return "<a href=\"../../gasconade/\">"+text+"</a>";
         }
 
         /// <summary>
