@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tag" Version="1.1.0" />
+    <PackageReference Include="Tag" Version="1.3.0" />
   </ItemGroup>
 
 </Project>

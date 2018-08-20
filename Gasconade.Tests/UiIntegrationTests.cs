@@ -1,4 +1,5 @@
 ﻿using Gasconade.Tests.SampleMessages;
+using Gasconade.UI;
 using NUnit.Framework;
 
 namespace Gasconade.Tests
@@ -32,5 +33,10 @@ namespace Gasconade.Tests
             Assert.That(subject.Description, Is.EqualTo("Denotes that one employee is trying to insult another"));
         }
 
+        [Test]
+        public void can_get_a_link_to_embed_in_other_sites () {
+            var link = GasconadeUi.Link("test");
+            Assert.That(link, Is.EqualTo("<a href=\"../../gasconade\">test</a>"));
+        }
     }
 }

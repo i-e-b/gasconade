@@ -110,6 +110,18 @@ namespace Gasconade.Tests
         }
 
         [Test]
+        public void clearing_and_re_adding_listeners_results_in_simgle_messages (){
+            
+            var dummyListener = new DummyListener();
+            Log.AddListener(dummyListener);
+            Log.RemoveAllListeners();
+            Log.AddListener(dummyListener);
+            Log.Warning(new TestMessage { Target = "Paul", Subject = "Phil" });
+
+            Assert.That(dummyListener.messages.Count, Is.EqualTo(1));
+        }
+
+        [Test]
         public void faulty_listeners_are_skipped_and_subsequent_listeners_called () {
             var dummyListener = new DummyListener();
             var faultyListener = new FaultyListener();

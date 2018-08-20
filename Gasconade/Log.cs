@@ -78,9 +78,11 @@ namespace Gasconade
             {
                 foreach (var listener in _listeners)
                 {
-                    try {
+                    try
+                    {
                         listener.HandleMessage(logLevel, message, data);
-                    } catch
+                    }
+                    catch
                     {
                         Ignore();
                     }
@@ -89,6 +91,18 @@ namespace Gasconade
         }
 
         private static void Ignore() {}
+
+        /// <summary>
+        /// Remove all listeners from the static logger.
+        /// All log messages will be ignored until further listeners are added
+        /// </summary>
+        public static void RemoveAllListeners()
+        {
+            lock (Lock)
+            {
+                _listeners.Clear();
+            }
+        }
     }
 }
 

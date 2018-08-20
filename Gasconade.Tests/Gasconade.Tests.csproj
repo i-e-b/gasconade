@@ -51,12 +51,17 @@
     <Compile Include="UiIntegrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gasconade.UI\Gasconade.UI.csproj">
+      <Project>{1DE03EC5-43D3-45FB-ABAB-6FBC2F37F304}</Project>
+      <Name>Gasconade.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gasconade\Gasconade.csproj">
       <Project>{4017d40d-05aa-426a-bbd5-f20daaf4d64d}</Project>
       <Name>Gasconade</Name>
